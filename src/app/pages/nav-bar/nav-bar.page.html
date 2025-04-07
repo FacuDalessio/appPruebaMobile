@@ -1,0 +1,6 @@
+<ion-toolbar>
+  <ion-buttons slot="end">
+    <ion-button *ngIf="!userService.getUserLogeado()" routerLink="login">Login</ion-button>
+    <ion-button *ngIf="userService.getUserLogeado()" (click)="logout()" routerLink="login">Cerrar sesion</ion-button>
+  </ion-buttons>
+</ion-toolbar>

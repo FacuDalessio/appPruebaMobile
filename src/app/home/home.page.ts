@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { UserService } from '../servicios/usuer.service';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +10,11 @@ import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/stan
 })
 export class HomePage implements OnInit{
 
-  user: any = '';
-
   constructor(
-    private auth: Auth
+    public userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.user = this.auth.currentUser ? this.auth.currentUser?.email : 'No se inicio sesion';
-    console.log(this.auth.currentUser);
   }
 
 }

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonLabel, IonItem, IonText, IonButton } from '@ionic/angular/standalone';
-import { LoginRequestDTO } from './model/loginRequestDTO';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonText, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { UserService } from 'src/app/servicios/usuer.service';
+import { LoginRequestDTO } from './model/loginRequestDTO';
 
 @Component({
   selector: 'app-login',
@@ -32,8 +32,8 @@ export class LoginPage implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private auth: Auth,
     private router: Router,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -46,8 +46,9 @@ export class LoginPage implements OnInit {
   login(){
     if(this.loginForm.valid){
       const { email, password } = this.loginForm.value;
-      signInWithEmailAndPassword(this.auth, email!, password!)
+      this.userService.login(email!, password!)
       .then(userCredential => {
+        this.userService.usuarioLogeado = userCredential.user.email;
         this.router.navigate(['/']);
       })
       .catch(error => {

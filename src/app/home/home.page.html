@@ -6,6 +6,6 @@
   </ion-header>
 
   <div id="container">
-    <strong>{{ user }}</strong>
+    <strong>{{ this.userService.getUserLogeado() ? this.userService.getUserLogeado()?.email : 'No se inicio sesion' }}</strong>
   </div>
 </ion-content>
